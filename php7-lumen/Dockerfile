@@ -11,6 +11,6 @@ RUN php /tmp/composer-setup.php
 
 RUN mv composer.phar /usr/local/bin/composer
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git && docker-php-ext-install pdo_mysql
 
 WORKDIR /var/www
