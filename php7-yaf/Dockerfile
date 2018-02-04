@@ -6,9 +6,9 @@ RUN mkdir -p /var/www && \
     mkdir -p /run/php
 
 RUN apt-get update && \
-    apt-get install -y dialog apt-utils
+    apt-get install -y dialog apt-utils software-properties-common python-software-properties
 
-RUN apt-get install -y software-properties-common python-software-properties openssl wget
+RUN apt-get install -y openssl wget
 
 RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && \
     apt-get update && \
@@ -43,9 +43,22 @@ RUN mkdir -p /tmp/redis && \
     echo "[redis]" >> /etc/php/7.1/fpm/php.ini && \
     echo "extension=redis.so" >> /etc/php/7.1/fpm/php.ini
 
-RUN touch /tmp/stdout
-CMD sh -c "php-fpm7.1 | tail -f /tmp/stdout"
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/cli/php.ini
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/upload_max_filesize = .*/upload_max_filesize = 10M/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/post_max_size = .*/post_max_size = 12M/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
+
+RUN sed -i -e "s/pid =.*/pid = \/var\/run\/php7.1-fpm.pid/" /etc/php/7.1/fpm/php-fpm.conf
+RUN sed -i -e "s/error_log =.*/error_log = \/proc\/self\/fd\/2/" /etc/php/7.1/fpm/php-fpm.conf
+RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf
+RUN sed -i "s/listen = .*/listen = 9000/" /etc/php/7.1/fpm/pool.d/www.conf
+RUN sed -i "s/;catch_workers_output = .*/catch_workers_output = yes/" /etc/php/7.1/fpm/pool.d/www.conf
 
 WORKDIR /var/www
 
 EXPOSE 9000
+
+CMD ["/usr/sbin/php-fpm7.1", "-F"]
+
