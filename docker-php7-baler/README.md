@@ -1,4 +1,4 @@
-# php环境docker打包机
+# 基于php7环境将代码打包成docker image打包机
 # 构件
 - alpine:3.8
 - docker:18.09
