@@ -34,6 +34,7 @@ RUN	PHP_CONF="/etc/php7/conf.d" \
 		php7-phar \
 		php7-mbstring \
 		php7-xml \
+		php7-tokenizer \
 	# Set php.ini
 	&& ADD_EXT(){ echo -e "extension = ${1}.so; \n${2}" > "$PHP_CONF/${1}.ini"; } \
 	#ADD_EXT \
