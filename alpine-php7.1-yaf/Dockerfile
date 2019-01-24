@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.7
 
 MAINTAINER Mingfeng Wang <me.wmf@foxmail.com>
 
@@ -48,7 +48,7 @@ RUN	PHP_CONF="/etc/php7/conf.d" \
 
 #COPY build extensions
 COPY ./modules/*.so /usr/lib/php7/modules/
-COPY ./entry.sh /entry.sh
+COPY entry.sh /entry.sh
 
 # Setup the Composer installer
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
