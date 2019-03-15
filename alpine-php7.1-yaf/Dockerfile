@@ -31,6 +31,7 @@ RUN	PHP_CONF="/etc/php7/conf.d" \
 		php7-gettext \
 		php7-iconv \
 		php7-ctype \
+		php7-pcntl \
 		php7-phar \
 		php7-mbstring \
 		php7-xml \
