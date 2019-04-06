@@ -24,6 +24,7 @@ RUN apk --no-cache add php7 php7-session php7-memcached php7-redis php7-fpm php7
 		php7-mbstring \
 		php7-xml \
 		php7-tokenizer \
+		php7-xmlwriter \
 		nginx supervisor curl
 
 # Configure nginx
