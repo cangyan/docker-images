@@ -13,7 +13,7 @@ ENV PORT=9000 \
 
 # install PHP
 RUN	PHP_CONF="/etc/php7/conf.d" \
-    && apk add --no-cache git curl php7 php7-session php7-memcached php7-redis php7-fpm php7-cli\
+    && apk add --no-cache git curl openssh php7 php7-session php7-memcached php7-redis php7-fpm php7-cli\
 		libmemcached-libs \
 	#php and ext
 		php7-mcrypt \
@@ -38,6 +38,7 @@ RUN	PHP_CONF="/etc/php7/conf.d" \
 		php7-simplexml \
 		php7-xmlreader \
 		php7-xmlwriter \
+		php7-fileinfo \
 		php7-zip \
 		php7-tokenizer \
 	# Set php.ini
