@@ -39,6 +39,7 @@ RUN apk update \
 
 
 FROM alpine:3.17.1
+RUN apk add --no-cache curl
 COPY --from=aws-cli-builder /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=aws-cli-builder /aws-cli-bin/ /usr/local/bin/
 COPY --from=builder /usr/local/bin/aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
