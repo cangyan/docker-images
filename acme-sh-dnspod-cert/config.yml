@@ -1,0 +1,45 @@
+# config.yml - 证书自动更新配置
+
+# acme.sh 注册账户
+acme:
+  email: "${ACME_EMAIL}"
+
+# DNSPod API 配置 (acme.sh DNS 验证)
+dnspod:
+  dp_id: "${DNSPOD_DP_ID}"
+  dp_key: "${DNSPOD_DP_KEY}"
+
+# 域名配置
+domains:
+  - base_domain: example.com
+    wildcard_levels:
+      - "*"           # *.example.com
+      - "qa"          # *.qa.example.com
+      - "staging"     # *.staging.example.com
+  - base_domain: another.com
+    wildcard_levels:
+      - "*"           # *.another.com
+
+# 腾讯云配置
+tencent:
+  secret_id: ${TC_SECRET_ID}
+  secret_key: ${TC_SECRET_KEY}
+  region: ap-guangzhou
+  services:
+    clb:
+      - name: web-lb
+        listener_ids: ["lbl-xxx"]
+    cdn:
+      - domains: ["*.example.com"]
+
+# 企业微信通知
+wecom:
+  webhook_url: "${WECOM_ROBOT_WEBHOOK}"
+  mentions:
+    - "张三"
+    - "李四"
+
+# 定时任务配置
+cron:
+  schedule: "0 3 * * 7"  # 每周日凌晨3点
+  enabled: true
