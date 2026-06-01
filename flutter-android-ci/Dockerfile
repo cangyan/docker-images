@@ -56,11 +56,11 @@ RUN git config --system --add safe.directory /opt/flutter
 RUN flutter config --no-analytics && flutter precache && \
     flutter config --enable-android && flutter doctor --android-licenses
 
-# 预缓存 Gradle distributions (避免运行时下载失败)
-ENV GRADLE_CACHE=/opt/gradle-cache
-ENV GRADLE_USER_HOME=$GRADLE_CACHE
-RUN mkdir -p $GRADLE_CACHE && \
-    cd /tmp && wget -q https://services.gradle.org/distributions/gradle-8.12-all.zip && \
-    unzip -q gradle-8.12-all.zip -d $GRADLE_CACHE && rm gradle-8.12-all.zip
+# 预缓存 Gradle distributions（可选，如遇网络问题可删除此步）
+# ENV GRADLE_CACHE=/opt/gradle-cache
+# RUN mkdir -p $GRADLE_CACHE/wrapper/dists && \
+#     cd /tmp && \
+#     wget -q https://services.gradle.org/distributions/gradle-8.12-bin.zip -O gradle-8.12.zip && \
+#     unzip -q gradle-8.12.zip -d $GRADLE_CACHE/wrapper/dists/ && rm gradle-8.12.zip
 
 WORKDIR /workspace
